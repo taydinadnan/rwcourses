@@ -26,9 +26,12 @@ class CourseDetailsPage extends StatelessWidget {
   }
 
   Widget _buildBanner() {
-    return ImageContainer(
-      url: course.artworkUrl,
-      height: 200,
+    return Hero(
+      tag: 'cardArtwork-${course.courseId}',
+      child: ImageContainer(
+        url: course.artworkUrl,
+        height: 200,
+      ),
     );
   }
 

@@ -47,9 +47,13 @@ class _CoursesPageState extends State<CoursesPage> {
             style: const TextStyle(fontSize: 18.0),
           ),
         ),
-        trailing: ClipRRect(
-          borderRadius: BorderRadius.circular(8.0),
-          child: Image.network(course.artworkUrl),
+        trailing: Hero(
+          tag: 'cardArtwork-${course.courseId}',
+          transitionOnUserGestures: true,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(8.0),
+            child: Image.network(course.artworkUrl),
+          ),
         ),
         subtitle: Text(course.domainString),
         onTap: () {
