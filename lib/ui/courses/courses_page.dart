@@ -23,7 +23,9 @@ class _CoursesPageState extends State<CoursesPage> {
             child: CircularProgressIndicator(),
           );
         }
-        return const Text("RWCourses");
+        return Text(
+          courses.toString(),
+        );
       },
     );
   }
