@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rwcourses/constants.dart';
 import 'package:rwcourses/strings.dart';
 import 'package:rwcourses/ui/filter/filter_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FilterPage extends StatefulWidget {
   const FilterPage({super.key});
@@ -12,6 +13,13 @@ class FilterPage extends StatefulWidget {
 
 class _FilterPageState extends State<FilterPage> {
   int _filterValue = Constants.allFilter;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadValue();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,9 +76,18 @@ class _FilterPageState extends State<FilterPage> {
     );
   }
 
-  void _handleRadioValueChange(int? value) {
+  void _loadValue() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _filterValue = prefs.getInt(Constants.filterKey) ?? 0;
+    });
+  }
+
+  void _handleRadioValueChange(int? value) async {
+    final prefs = await SharedPreferences.getInstance();
     setState(() {
       _filterValue = value ?? 0;
+      prefs.setInt(Constants.filterKey, _filterValue);
     });
   }
 }
