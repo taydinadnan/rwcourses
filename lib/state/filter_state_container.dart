@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class FilterStateContainer extends StatefulWidget {
   final Widget child;
 
-  const FilterStateContainer({super.key, required this.child});
+  const FilterStateContainer({Key? key, required this.child}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => FilterState();
@@ -32,10 +32,12 @@ class FilterState extends State<FilterStateContainer> {
     return _FilterInheritedWidget(state: this, child: widget.child);
   }
 
-  void _loadValue() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      filterValue = prefs.getInt(Constants.filterKey) as int;
+  void _loadValue() {
+    SharedPreferences.getInstance().then((value) {
+      _prefs = value;
+      setState(() {
+        filterValue = _prefs.getInt(Constants.filterKey) as int;
+      });
     });
   }
 
